@@ -116,7 +116,9 @@ As you can see, all the gameids that have relatively arbitrary gameids with just
 It could superficially be argued that the data is MAR since missingness is tied to the gameid. However, the reason why the non ESPORTSTMNT games have missing data is because they were not broadcasted and the data is likely missing by design (MD) as those features were never intended to be recorded for scrim games. The data isn't MCAR because the data isn't missing independent of any context, nor is it NMAR because it isn't missing due to the value themselves.
 
 # Hypothesis Testing
-This hypothesis test aims to answer whether or not bot lane 
+This hypothesis test aims to answer whether or not top lane or bot lane is more optimal to strongside by
+analyzing their winrates via a hypothesis test.
+
 #### Null Hypothesis:
 There is no statistically significant winrate difference between strongsiding bot and strongsiding top, and they are equally viable strategies.
 
@@ -126,12 +128,64 @@ There is a significant difference between strongsiding bot and strongsiding top,
 #### Test Chosen and Reasoning:
 The best choice for this test is a permutation test, because the distribution under the null isn't random here. The decision to strongside a lane is not random, it's a decision made by the team. My test statistic will be the absolute difference of means, as direction doesn't matter here. A significance level of 0.05 is used here.
 
+#### Results
+
 # Framing a Prediction Problem
 ### PREDICTION PROBLEM
-Whether a team will win or lose a game. This can be predicted by whether a team's resource allocation/map play strategy involves strongsiding their top or bot laner. Linear Regression is a possible model for this task.
+Whether a team will win or lose a game. This can be predicted by whether a team's resource allocation/map play strategy involves strongsiding their top or bot laner. Linear Regression is a possible model for this task. Given that the majority of our variables are either binary or numeric, there isn't any encoding that needs to be done for our model. To prevent overfitting,
+the data will be split into training data and test data at an 80 to 20 ratio. Model evaluation
+will be done using RMSE. 
+
+Furthermore, due to the nature of my question, there needs to be
+two separate but mostly identical models, because if the models are merged, it will ALWAYS
+average out to a 50% winrate for both top and bot lane. For all intents and purposes, the models
+are the same, just measuring the winrate for top and bot respectively. So while technically there
+are two different models, they are almost completely identical.
 
 # Baseline Model
+For the baseline model, a simple Linear Regression model was used with only the binary feature
+strongside used to track the result. After fitting the model and showing our predictions,
+our RMSE was 0.4875 for top lane and 0.4962 for bot lane, which signals that the model
+is not much better than just predicting the mean.
+
+Here was our output:
+Top Winrate when strongside: 47.59985558215104%
+Top RMSE:  0.48751120168768197
+Bot Winrate when strongside: 50.78550934807408%
+Bot RMSE:  0.49616047047465045
 
 # Final Model
+In our final model, the following features were added. We added a feature 'is_strongside_top/bot_champ', which
+is a binary feature that sees if the champ is traditionally strongsided in top (Jax, Fiora) or bot (Zeri, Jinx). Additionally, we added the binary features firsttower, firstdragon, firstherald, as well as the numeric features
+kills, turretplates, and opp_towers. Lastly, we made a new feature to see if strongside got plates, by multiplying turretplates and strongside together, named plates_and_strongside. We are using R^2 as our evaluation metric
+
+Our final model uses a Random Forest Regressor since our data isn't linear in nature, with the hyperparameters
+max depth and minimum samples split, and using grid search to find that the best hyperparameters for top lane are 
+a max depth of 4 and a minimum sample split of 10, and the best hyperparameters for bot lane are a max depth of 3 and
+minimum sample split of 5.
+
+Here was our output:
+TEST SET EVALUATION: 
+
+Top Winrate when strongside: 52.0962913022957%
+Bot Winrate when strongside: 53.11458993606587%
+Top Lane R^2 on test set : 0.2157064684301735
+Bot Lane R^2 on test set : 0.504319025050114
+
+So now, the bot lane predictions are fairly accurate, but the top lane predictions are lagging behind significantly.
 
 # Fairness Analysis
+In this section, the fairness of the final model will be assessed between two different groups: again, 
+top laners and bot laners. The question to be answered is "Does my model perform the same for both top laners and bot
+laners?"
+
+### Null Hypothesis (H₀):
+The model is equally fair for both top laners and bot laners. The difference in RMSE is down to random chance.
+
+### Alternate Hypothesis (H₁):
+The model is less fair for one group compared to the other. The difference in RMSE is not random.
+
+My test statistic will be the absolute difference in RMSE, and our significance level is 0.05.
+
+#### Result 
+After performing the permutation test, we reject the null hypothesis because the p_value is 0.015, less than 0.05 and thus our observed statistic is extreme, meaning that our model is not equally fair to top and bot lane.
