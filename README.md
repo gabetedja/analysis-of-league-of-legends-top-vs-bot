@@ -74,6 +74,24 @@ Due to the nature of how my split map metric works, I can only determine if a ga
 ````
 
 ### Univariate Analysis
+We performed univariate analysis on the golddiffat15 and csdiffat15 features. Here are their histograms below.
+
+<iframe
+  src="assets/golddiff_at_15.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/csdiffat15.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+As can be seen, the distribution of the data in these histograms is mostly normal, suggesting
+well behaved data that isn't out of the ordinary and is good to analyze player resource advantages or disadvantages in a professional setting.
 
 ### Bivariate Analysis
 
@@ -149,9 +167,13 @@ our RMSE was 0.4875 for top lane and 0.4962 for bot lane, which signals that the
 is not much better than just predicting the mean.
 
 Here was our output:
+
 Top Winrate when strongside: 47.59985558215104%
+
 Top RMSE:  0.48751120168768197
+
 Bot Winrate when strongside: 50.78550934807408%
+
 Bot RMSE:  0.49616047047465045
 
 # Final Model
@@ -165,11 +187,15 @@ a max depth of 4 and a minimum sample split of 10, and the best hyperparameters 
 minimum sample split of 5.
 
 Here was our output:
+
 TEST SET EVALUATION: 
 
 Top Winrate when strongside: 52.0962913022957%
+
 Bot Winrate when strongside: 53.11458993606587%
+
 Top Lane R^2 on test set : 0.2157064684301735
+
 Bot Lane R^2 on test set : 0.504319025050114
 
 So now, the bot lane predictions are fairly accurate, but the top lane predictions are lagging behind significantly.
@@ -179,13 +205,13 @@ In this section, the fairness of the final model will be assessed between two di
 top laners and bot laners. The question to be answered is "Does my model perform the same for both top laners and bot
 laners?"
 
-### Null Hypothesis (H₀):
+#### Null Hypothesis (H₀):
 The model is equally fair for both top laners and bot laners. The difference in RMSE is down to random chance.
 
-### Alternate Hypothesis (H₁):
+#### Alternate Hypothesis (H₁):
 The model is less fair for one group compared to the other. The difference in RMSE is not random.
 
 My test statistic will be the absolute difference in RMSE, and our significance level is 0.05.
 
 #### Result 
-After performing the permutation test, we reject the null hypothesis because the p_value is 0.015, less than 0.05 and thus our observed statistic is extreme, meaning that our model is not equally fair to top and bot lane.
+After performing the permutation test, we reject the null hypothesis because the p-value is 0.015, less than 0.05 and thus our observed statistic is extreme, meaning that our model is not equally fair to top and bot lane.
