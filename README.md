@@ -76,20 +76,8 @@ Due to the nature of how my split map metric works, I can only determine if a ga
 
 ### Univariate Analysis
 We performed univariate analysis on the golddiffat15 and csdiffat15 features. Here are their histograms below.
-
-<iframe
-  src="assets/golddiff_at_15.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
-<iframe
-  src="assets/csdiffat15.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
-
+<iframe src="assets/golddiff_at_15.html" width="800" height="600" frameborder="0"></iframe>
+<iframe src="assets/csdiffat15.html" width="800" height="600" frameborder="0"></iframe>
 As can be seen, the distribution of the data in these histograms is mostly normal, suggesting
 well behaved data that isn't out of the ordinary and is good to analyze player resource advantages or disadvantages in a professional setting.
 
@@ -98,19 +86,8 @@ well behaved data that isn't out of the ordinary and is good to analyze player r
 We performed bivariate analysis on the columns 'strongside' and 'result', filtered to two separate DataFrames
 for top lane and bot lane, because if we conducted the operation on the whole split map DataFrame, it would
 result in a 50% winrate for both sides automatically. Since the data is categorical, bar graphs were used.
-<iframe
-  src="assets/strongside_top_wr.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
-<iframe
-  src="assets/strongside_bot_wr.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe> 
-
+<iframe src="assets/strongside_top_wr.html" width="800" height="600" frameborder="0"></iframe>
+<iframe src="assets/strongside_bot_wr.html" width="800" height="600" frameborder="0"></iframe> 
 So we can see that there's a negative correlation between winning and strongsiding your top laner, and that strongside top has a 37% winrate! Think twice before playing around that Fiora in your solo queue, and make sure to camp that Draven at all costs! But in all seriousness, this is likely attributable to western teams being much more skewed towards bot lane, with much better ADCs (bot laners) on average than top lane players. In Eastern regions, both carry tops and bots are equally viable strategies. It's also harder to make top lane a win condition since generally top lane carries are moreso 1v1 specialists, such as Jax and Fiora, rather than being great in 5v5 as bot laners like Jinx, Zeri, and Caitlyn are. Additionally, top lane is generally isolated from the rest of the map and the majority of early fights around dragon and bot river, only really participating in the scuttle, grub, and herald fights until the lategame.
 
 
