@@ -44,3 +44,24 @@ in a 1v1 scenario, so a kill usually implies resources were allocated to a playe
 
 -`opp_towers`: Towers destroyed by the player. Usually a good metric of impact for top lane duelists.
 
+# Data Cleaning and Exploratory Data Analysis
+
+# Assessment of Missingness
+### Missingness Disclaimer
+Going forward, I want to make a disclaimer that for the remaining steps in this project, I am only going to be working with the dataset of games with a split map. As I said previously, my metrics for constituting a split map
+fails without CS difference and gold difference at 15 minutes. That said, I would still like to assess the missingness in games with missing values anyway.
+
+### Assumption
+As you can see, all the gameids that have relatively arbitrary gameids with just numbers instead of containing ESPORTSTMNT are games that do not have values for csdiffat15 or golddiffat15. It's reasonable to conclude that since the gameids are markedly different, games with the label ESPORTSTMNT are matches that were broadcasted, and that it likely stands for eSports Tournament, which means that the other gameids were likely ids of scrim games or otherwise matches that were not broadcasted. Scrims are not really relevant to the conversation here because of a lack of public or stage pressure; the audience will never get to see a scrim game. The audience and analysts will make their conclusions on the metagame of League of Legends based on what happens in broadcasted games, since that's all they'll ever see.
+
+It could superficially be argued that the data is MAR since missingness is tied to the gameid. However, the reason why the non ESPORTSTMNT games have missing data is because they were not broadcasted and the data is likely missing by design (MD) as those features were never intended to be recorded for scrim games. The data isn't MCAR because the data isn't missing independent of any context, nor is it NMAR because it isn't missing due to the value themselves.
+
+# Hypothesis Testing
+
+# Framing a Prediction Problem
+
+# Baseline Model
+
+# Final Model
+
+# Fairness Analysis
