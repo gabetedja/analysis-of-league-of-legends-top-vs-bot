@@ -51,14 +51,19 @@ in a 1v1 scenario, so a kill usually implies resources were allocated to a playe
 Going forward, I want to make a disclaimer that for the remaining steps in this project, I am only going to be working with the dataset of games with a split map. As I said previously, my metrics for constituting a split map
 fails without CS difference and gold difference at 15 minutes. That said, I would still like to assess the missingness in games with missing values anyway.
 
-#### Missingness DataFrame Head
-| gameid           | league   | side   | position   | champion   |   result |   csdiffat15 |   golddiffat15 |   turretplates |   firsttower |   firstdragon |   firstherald |   towers |   kills |   opp_towers |   strongside |
-|:-----------------|:---------|:-------|:-----------|:-----------|---------:|-------------:|---------------:|---------------:|-------------:|--------------:|--------------:|---------:|--------:|-------------:|-------------:|
-| 8401-8401_game_1 | LPL      | Blue   | top        | Gwen       |        1 |          nan |            nan |            nan |          nan |           nan |           nan |      nan |       5 |          nan |          nan |
-| 8401-8401_game_1 | LPL      | Blue   | jng        | Jarvan IV  |        1 |          nan |            nan |            nan |          nan |           nan |           nan |      nan |       0 |          nan |          nan |
-| 8401-8401_game_1 | LPL      | Blue   | mid        | Syndra     |        1 |          nan |            nan |            nan |          nan |           nan |           nan |      nan |       3 |          nan |          nan |
-| 8401-8401_game_1 | LPL      | Blue   | bot        | Jinx       |        1 |          nan |            nan |            nan |          nan |           nan |           nan |      nan |       4 |          nan |          nan |
-| 8401-8401_game_1 | LPL      | Blue   | sup        | Nautilus   |        1 |          nan |            nan |            nan |          nan |           nan |           nan |      nan |       1 |          nan |          nan |
+````markdown
+## Missingness DataFrame Head
+
+```markdown
+| gameid             | league | side | position | champion   | result | csdiffat15 | golddiffat15 | turretplates | firsttower | firstdragon | firstherald | towers | kills | opp_towers | strongside |
+|:------------------|:-------|:-----|:---------|:-----------|--------:|------------:|--------------:|---------------:|------------:|--------------:|--------------:|--------:|--------:|-------------:|------------:|
+| 8401-8401_game_1  | LPL    | Blue | top      | Gwen       |       1 | nan        | nan          | nan           | nan        | nan          | nan          |      5 | nan    | nan         | nan         |
+| 8401-8401_game_1  | LPL    | Blue | jng      | Jarvan IV  |       1 | nan        | nan          | nan           | nan        | nan          | nan          | nan    | nan    | 0           | nan         |
+| 8401-8401_game_1  | LPL    | Blue | mid      | Syndra     |       1 | nan        | nan          | nan           | nan        | nan          | nan          |      3 | nan    | nan         | nan         |
+| 8401-8401_game_1  | LPL    | Blue | bot      | Jinx       |       1 | nan        | nan          | nan           | nan        | nan          |      4       | nan    | nan    | nan         | nan         |
+| 8401-8401_game_1  | LPL    | Blue | sup      | Nautilus   |       1 | nan        | nan          | nan           | nan        | nan          |      1       | nan    | nan    | nan         | nan         |
+```
+````
 
 ### Assumption
 As you can see, all the gameids that have relatively arbitrary gameids with just numbers instead of containing ESPORTSTMNT are games that do not have values for csdiffat15 or golddiffat15. It's reasonable to conclude that since the gameids are markedly different, games with the label ESPORTSTMNT are matches that were broadcasted, and that it likely stands for eSports Tournament, which means that the other gameids were likely ids of scrim games or otherwise matches that were not broadcasted. Scrims are not really relevant to the conversation here because of a lack of public or stage pressure; the audience will never get to see a scrim game. The audience and analysts will make their conclusions on the metagame of League of Legends based on what happens in broadcasted games, since that's all they'll ever see.
