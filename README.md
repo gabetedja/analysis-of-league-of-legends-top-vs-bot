@@ -166,6 +166,13 @@ There is a significant difference between strongsiding bot and strongsiding top,
 The best choice for this test is a permutation test, because the distribution under the null isn't random here. The decision to strongside a lane is not random, it's a decision made by the team. My test statistic will be the absolute difference of means, as direction doesn't matter here. A significance level of 0.05 is used here.
 
 #### Results
+<iframe
+  src="assets/hypothesis_test_results.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+Based on this data, we reject the null hypothesis. The winrates for bot laners and top laners aren't equal and strongsiding top and bot are not equally viable strategies, or at least not equally applicable to any situation.
 
 # Framing a Prediction Problem
 ### PREDICTION PROBLEM
